@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 
 interface AdSpaceProps {
     className?: string;
-    variant?: 'native' | 'vertical' | 'card' | 'banner';
+    variant?: 'native' | 'vertical' | 'card' | 'banner' | 'horizontal' | '320x50';
     zoneId?: string;
 }
 
@@ -23,7 +23,30 @@ const AdSpace = ({ className, variant = 'native', zoneId }: AdSpaceProps) => {
             document.head.appendChild(script);
         };
 
+        // Load 320x50 ad script
+        const load320x50Script = () => {
+            if (variant === '320x50') {
+                const script = document.createElement('script');
+                script.innerHTML = `
+                  atOptions = {
+                    'key' : '404184b13749a2a96a3ca9c588f1aa38',
+                    'format' : 'iframe',
+                    'height' : 50,
+                    'width' : 320,
+                    'params' : {}
+                  };
+                `;
+                document.head.appendChild(script);
+                
+                const invokeScript = document.createElement('script');
+                invokeScript.src = 'https://vetofellowshipfly.com/404184b13749a2a96a3ca9c588f1aa38/invoke.js';
+                invokeScript.async = true;
+                document.head.appendChild(invokeScript);
+            }
+        };
+
         loadAdScript();
+        load320x50Script();
 
         // Initialize ad provider after component mounts
         const initAdProvider = () => {
@@ -81,17 +104,26 @@ const AdSpace = ({ className, variant = 'native', zoneId }: AdSpaceProps) => {
                 variant === 'card' && "w-full h-full min-h-[280px] rounded-xl shadow-sm",
                 variant === 'vertical' && "w-[160px] h-[300px] rounded-lg shadow-sm",
                 variant === 'banner' && "w-[300px] h-[250px] rounded-lg shadow-sm",
+                variant === 'horizontal' && "w-full h-[90px] rounded-lg shadow-sm",
+                variant === '320x50' && "w-full max-w-[320px] h-[50px] rounded-lg shadow-sm mx-auto",
                 className
             )}
         >
             <div className="flex flex-col items-center justify-center gap-0 w-full h-full">
-                <ins 
-                    className={getAdClass()}
-                    data-zoneid={getZoneId()}
-                    data-keywords="keywords"
-                    data-sub="123450000"
-                    style={{ display: 'block', width: '100%', height: '100%' }}
-                ></ins>
+                {variant === '320x50' ? (
+                    // 320x50 ad placeholder - rendered by external script
+                    <div className="w-full h-full flex items-center justify-center">
+                        <ins className="adsbygoogle" style={{ display: 'inline-block', width: '320px', height: '50px' }} data-ad-client="ca-pub-0000000000000000" data-ad-slot="0000000000"></ins>
+                    </div>
+                ) : (
+                    <ins 
+                        className={getAdClass()}
+                        data-zoneid={getZoneId()}
+                        data-keywords="keywords"
+                        data-sub="123450000"
+                        style={{ display: 'block', width: '100%', height: '100%' }}
+                    ></ins>
+                )}
             </div>
         </div>
     );

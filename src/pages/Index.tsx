@@ -7,6 +7,7 @@ import ArticleGrid from '@/components/ArticleGrid';
 import Pagination from '@/components/Pagination';
 import Footer from '@/components/Footer';
 import AdSpace from '@/components/AdSpace';
+import Smartlink from '@/components/Smartlink';
 
 import { Video } from '@/data/mockArticles';
 import { videoService } from '@/services/api';
@@ -142,6 +143,22 @@ const Index = () => {
               </div>
             </div>
           )}
+
+          {/* 320x50 Banner Ad */}
+          <div className="container py-3">
+            <div className="flex justify-center">
+              <AdSpace variant="320x50" className="" />
+            </div>
+          </div>
+
+          {/* Smartlink Banner */}
+          <div className="container py-4">
+            <Smartlink
+              title="Smartlink_1"
+              description="Visit our exclusive offers and earn rewards"
+              displayType="banner"
+            />
+          </div>
 
           {/* No Results Fallback */}
           {searchQuery && filteredArticles.length === 0 ? (

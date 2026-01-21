@@ -2,7 +2,7 @@ import { Video } from '@/data/mockArticles';
 import ArticleCard from './VideoCard';
 import AdSpace from './AdSpace';
 import VideoSliderAd from './VideoSliderAd';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface ArticleGridProps {
   articles: Video[];
@@ -10,20 +10,46 @@ interface ArticleGridProps {
 }
 
 const ArticleGrid = ({ articles, title }: ArticleGridProps) => {
+  const [columnCount, setColumnCount] = useState(4);
+
+  // Update column count based on window width
+  useEffect(() => {
+    const updateColumnCount = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        setColumnCount(1);
+      } else if (width < 1024) {
+        setColumnCount(2);
+      } else if (width < 1280) {
+        setColumnCount(3);
+      } else {
+        setColumnCount(4);
+      }
+    };
+
+    updateColumnCount();
+    window.addEventListener('resize', updateColumnCount);
+    return () => window.removeEventListener('resize', updateColumnCount);
+  }, []);
+
   const injectAds = (articles: Video[]) => {
     const itemsWithAds: React.ReactNode[] = [];
-    // Calculate positions to have roughly 3 ads evenly distributed
-    // For 16 items: roughly after 4, 9, 14. To fill 20th slot (4 rows of 5? No, grid-cols-4 means 5 rows of 4 = 20),
-    // we need 20 items. 16 videos + 4 ads = 20 items.
-    // Positions: 4, 9, 14, 15 (after 16th video)
-    const adPositions = [4, 9, 14, 15];
+    // Dynamically calculate ad positions based on column count
+    // Distribute ads evenly throughout the grid
+    const itemsPerPage = columnCount * 4; // Assume 4 rows visible
+    const adSpacing = Math.ceil(itemsPerPage / 3); // Roughly 3 ads per screen
+    const adPositions = new Set<number>();
+    
+    for (let i = adSpacing - 1; i < articles.length; i += adSpacing) {
+      adPositions.add(i);
+    }
 
     articles.forEach((article, index) => {
       itemsWithAds.push(<ArticleCard key={article.id} article={article} />);
 
-      if (adPositions.includes(index)) {
+      if (adPositions.has(index)) {
         // Alternate between regular ads and video slider ads
-        const useVideoSliderAd = index === 9; // Use video slider ad for middle position
+        const useVideoSliderAd = index % 9 === 8; // Use video slider ad periodically
         itemsWithAds.push(
           <div key={`ad-${index}`} className="col-span-1 rounded-xl overflow-hidden shadow-md border border-border bg-gradient-to-br from-primary/5 to-secondary/5 flex items-center justify-center min-h-[300px] p-0 hover:shadow-lg transition-all">
             {useVideoSliderAd ? (
@@ -38,6 +64,13 @@ const ArticleGrid = ({ articles, title }: ArticleGridProps) => {
     return itemsWithAds;
   };
 
+  const gridColsClass = {
+    1: 'grid-cols-1',
+    2: 'grid-cols-2',
+    3: 'grid-cols-3',
+    4: 'grid-cols-4',
+  }[columnCount] || 'grid-cols-4';
+
   return (
     <section className="container py-8">
       {title && (
@@ -46,8 +79,8 @@ const ArticleGrid = ({ articles, title }: ArticleGridProps) => {
         </h2>
       )}
 
-      {/* YouTube-style Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-8">
+      {/* Dynamic responsive grid */}
+      <div className={`grid ${gridColsClass} gap-x-4 gap-y-8`}>
         {injectAds(articles)}
       </div>
     </section>

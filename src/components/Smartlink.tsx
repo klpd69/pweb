@@ -3,6 +3,7 @@ import { ExternalLink } from 'lucide-react';
 interface SmartlinkProps {
   title?: string;
   description?: string;
+  url?: string;
   className?: string;
   displayType?: 'banner' | 'button' | 'card';
 }
@@ -10,15 +11,15 @@ interface SmartlinkProps {
 const Smartlink = ({
   title = 'Smartlink_1',
   description = 'Visit our exclusive offers',
+  url = 'https://vetofellowshipfly.com/wmg8fwe9m?key=18397a01cd6a8d1a5fac7e9423dfa095',
   className = '',
   displayType = 'banner'
 }: SmartlinkProps) => {
-  const smartlinkUrl = 'https://www.effectivegatecpm.com/wmg8fwe9m?key=18397a01cd6a8d1a5fac7e9423dfa095';
 
   if (displayType === 'button') {
     return (
       <a
-        href={smartlinkUrl}
+        href={url}
         target="_blank"
         rel="noopener noreferrer"
         className={`inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground rounded-lg font-semibold transition-all hover:shadow-lg ${className}`}
@@ -32,7 +33,7 @@ const Smartlink = ({
   if (displayType === 'card') {
     return (
       <a
-        href={smartlinkUrl}
+        href={url}
         target="_blank"
         rel="noopener noreferrer"
         className={`block p-6 bg-gradient-to-br from-primary/10 via-secondary/10 to-primary/10 border border-border rounded-lg hover:shadow-md transition-all hover:border-primary/50 ${className}`}
@@ -51,7 +52,7 @@ const Smartlink = ({
   // Default banner display
   return (
     <a
-      href={smartlinkUrl}
+      href={url}
       target="_blank"
       rel="noopener noreferrer"
       className={`block w-full p-6 bg-gradient-to-r from-primary/5 via-secondary/5 to-primary/5 border border-border rounded-lg hover:shadow-md hover:border-primary/50 transition-all group ${className}`}

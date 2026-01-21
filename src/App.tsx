@@ -6,6 +6,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { useInitializeAdProviders } from "@/hooks/useInitializeAdProviders";
+import Popunder from "@/components/Popunder";
+import AntiAdblock from "@/components/AntiAdblock";
+import SocialBar from "@/components/SocialBar";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
@@ -21,8 +24,12 @@ const AppContent = () => {
   useInitializeAdProviders();
 
   return (
-    <BrowserRouter>
-      <Routes>
+    <>
+      <Popunder />
+      <AntiAdblock />
+      <SocialBar position="side" />
+      <BrowserRouter>
+        <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/latest" element={<Index />} />
         <Route path="/top-rated" element={<Index />} />
@@ -37,6 +44,7 @@ const AppContent = () => {
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
+    </>
   );
 };
 
