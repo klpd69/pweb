@@ -6,8 +6,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { useInitializeAdProviders } from "@/hooks/useInitializeAdProviders";
-import Popunder from "@/components/Popunder";
-import AntiAdblock from "@/components/AntiAdblock";
 import SocialBar from "@/components/SocialBar";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
@@ -25,8 +23,6 @@ const AppContent = () => {
 
   return (
     <>
-      <Popunder />
-      <AntiAdblock />
       <SocialBar position="side" />
       <BrowserRouter>
         <Routes>

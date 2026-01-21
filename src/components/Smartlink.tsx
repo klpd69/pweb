@@ -11,7 +11,7 @@ interface SmartlinkProps {
 const Smartlink = ({
   title = 'Smartlink_1',
   description = 'Visit our exclusive offers',
-  url = 'https://vetofellowshipfly.com/wmg8fwe9m?key=18397a01cd6a8d1a5fac7e9423dfa095',
+  url = '#',
   className = '',
   displayType = 'banner'
 }: SmartlinkProps) => {
