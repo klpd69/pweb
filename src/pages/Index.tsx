@@ -8,6 +8,8 @@ import Pagination from '@/components/Pagination';
 import Footer from '@/components/Footer';
 import AdSpace from '@/components/AdSpace';
 import AdSense from '@/components/AdSense';
+import NativeBanner from '@/components/NativeBanner';
+import Smartlink from '@/components/Smartlink';
 
 import { Video } from '@/data/mockArticles';
 import { videoService } from '@/services/api';
@@ -134,6 +136,19 @@ const Index = () => {
           {/* Native Banner Ad */}
           <div className="container py-2">
             <AdSpace variant="native" className="my-2" />
+          </div>
+
+          {/* Native Banner Widget - 4 images with teaser text */}
+          <div className="container py-6">
+            <NativeBanner />
+          </div>
+
+          {/* Smartlink Banner */}
+          <div className="container py-4">
+            <Smartlink
+              title="Smartlink_1"
+              description="Visit our exclusive offers and earn rewards"
+            />
           </div>
 
           {/* Category indicator */}

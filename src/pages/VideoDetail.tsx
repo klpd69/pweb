@@ -122,79 +122,69 @@ const VideoDetail = () => {
             <Header />
             <main className="flex-1">
                 {/* Native Banner Ad before content */}
-                <div className="container py-6">
-                    <AdSpace variant="native" className="my-4" />
+                <div className="container py-4">
+                    <AdSpace variant="native" className="" />
                 </div>
 
-
                 <div className="container py-8 max-w-5xl mx-auto">
-                    <div className="flex flex-col gap-12">
-                        {/* Main content column */}
-                        <div>
+                    <article className="space-y-8">
+                        <div className="space-y-4">
+                            <VideoPlayer key={video.id} url={video.videoUrl} title={video.title} />
 
-
-                            <article className="space-y-6">
-                                <div className="space-y-4">
-                                    <VideoPlayer key={video.id} url={video.videoUrl} title={video.title} />
-
-                                    <div className="flex items-start justify-between gap-4">
-                                        <div className="space-y-2">
-                                            <Badge variant="secondary" className="capitalize">
-                                                {video.category}
-                                            </Badge>
-                                            <h1 className="text-2xl md:text-4xl font-bold font-headline leading-tight">
-                                                {video.title}
-                                            </h1>
-                                        </div>
-                                    </div>
-
-                                    <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground py-2 border-b">
-                                        <span className="flex items-center gap-2">
-                                            <User size={16} /> {video.author}
-                                        </span>
-                                        <span className="flex items-center gap-2">
-                                            <Calendar size={16} /> {video.publishedAt}
-                                        </span>
-                                    </div>
+                            <div className="flex items-start justify-between gap-4">
+                                <div className="space-y-2">
+                                    <Badge variant="secondary" className="capitalize">
+                                        {video.category}
+                                    </Badge>
+                                    <h1 className="text-2xl md:text-4xl font-bold font-headline leading-tight">
+                                        {video.title}
+                                    </h1>
                                 </div>
+                            </div>
 
-                                <div className="prose prose-lg dark:prose-invert max-w-none">
-                                    <div className="whitespace-pre-wrap leading-relaxed">
-                                        {video.description}
-                                    </div>
-                                </div>
-
-                                {/* Ad Space */}
-                                <div className="my-8 py-6 bg-muted/20 rounded-lg">
-                                    <div id='_2640576' className='_0bd1320ebfcd'></div>
-                                </div>
-                            </article>
+                            <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground py-2 border-b">
+                                <span className="flex items-center gap-2">
+                                    <User size={16} /> {video.author}
+                                </span>
+                                <span className="flex items-center gap-2">
+                                    <Calendar size={16} /> {video.publishedAt}
+                                </span>
+                            </div>
                         </div>
 
-                        {/* Recommended Videos Section */}
-                        <div className="space-y-6">
-                            <h2 className="text-2xl font-bold font-headline">Recommended Videos</h2>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {renderRecommendations().map((item, idx) => (
-                                    <React.Fragment key={idx}>
-                                        {item.type === 'video' ? (
-                                            <ArticleCard article={item.data as Video} />
-                                        ) : (
-                                            <div className="col-span-1 min-h-[300px] flex items-center justify-center bg-muted/30 rounded-xl border border-dashed">
-                                                <div className="w-full h-full p-2">
-                                                    <AdSpace variant="card" className="w-full h-full min-h-[250px]" />
-                                                </div>
-                                            </div>
-                                        )}
-                                    </React.Fragment>
-                                ))}
+                        <div className="prose prose-lg dark:prose-invert max-w-none">
+                            <div className="whitespace-pre-wrap leading-relaxed">
+                                {video.description}
                             </div>
+                        </div>
 
-                            <div className="flex justify-center pt-8">
-                                <Button size="lg" variant="outline" className="min-w-[200px]" onClick={handleLoadMore}>
-                                    {hasLoadedMore ? 'View More on Homepage' : 'Load More Videos'}
-                                </Button>
-                            </div>
+                        {/* Ad Space */}
+                        <div className="bg-gradient-to-r from-primary/5 via-secondary/5 to-primary/5 border border-border rounded-lg p-6">
+                            <div id='_2640576' className='_0bd1320ebfcd w-full min-h-[120px]'></div>
+                        </div>
+                    </article>
+
+                    {/* Recommended Videos Section */}
+                    <div className="space-y-6 mt-12 pt-8 border-t">
+                        <h2 className="text-2xl font-bold font-headline">Recommended Videos</h2>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {renderRecommendations().map((item, idx) => (
+                                <React.Fragment key={idx}>
+                                    {item.type === 'video' ? (
+                                        <ArticleCard article={item.data as Video} />
+                                    ) : (
+                                        <div className="col-span-1 min-h-[300px] rounded-xl overflow-hidden shadow-md border border-border bg-gradient-to-br from-primary/5 to-secondary/5 hover:shadow-lg transition-all">
+                                            <AdSpace variant="card" className="w-full h-full" />
+                                        </div>
+                                    )}
+                                </React.Fragment>
+                            ))}
+                        </div>
+
+                        <div className="flex justify-center pt-6">
+                            <Button size="lg" variant="outline" className="min-w-[200px]" onClick={handleLoadMore}>
+                                {hasLoadedMore ? 'View More on Homepage' : 'Load More Videos'}
+                            </Button>
                         </div>
                     </div>
                 </div>

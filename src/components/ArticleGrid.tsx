@@ -25,14 +25,12 @@ const ArticleGrid = ({ articles, title }: ArticleGridProps) => {
         // Alternate between regular ads and video slider ads
         const useVideoSliderAd = index === 9; // Use video slider ad for middle position
         itemsWithAds.push(
-          <div key={`ad-${index}`} className="col-span-1 rounded-xl overflow-hidden shadow-sm border border-border bg-card flex flex-col items-center justify-center p-2 min-h-[300px]">
-            <div className="w-full h-full bg-muted/30 flex items-center justify-center rounded-lg">
-              {useVideoSliderAd ? (
-                <VideoSliderAd />
-              ) : (
-                <AdSpace variant="card" className="w-full h-full" />
-              )}
-            </div>
+          <div key={`ad-${index}`} className="col-span-1 rounded-xl overflow-hidden shadow-md border border-border bg-gradient-to-br from-primary/5 to-secondary/5 flex items-center justify-center min-h-[300px] p-0 hover:shadow-lg transition-all">
+            {useVideoSliderAd ? (
+              <VideoSliderAd />
+            ) : (
+              <AdSpace variant="card" className="w-full h-full" />
+            )}
           </div>
         );
       }
