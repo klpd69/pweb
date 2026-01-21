@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 
 interface AdSpaceProps {
@@ -7,20 +7,33 @@ interface AdSpaceProps {
 }
 
 const AdSpace = ({ className, variant = 'native' }: AdSpaceProps) => {
+    const containerRef = useRef<HTMLDivElement>(null);
+
     useEffect(() => {
-        // Initialize ad provider
-        try {
-            // @ts-ignore
-            (window.AdProvider = window.AdProvider || []).push({ "serve": {} });
-        } catch (err) {
-            console.error('AdProvider error:', err);
-        }
+        // Initialize ad provider after component mounts
+        const initAdProvider = () => {
+            try {
+                // @ts-ignore
+                if (window.AdProvider) {
+                    // @ts-ignore
+                    window.AdProvider.push({ "serve": {} });
+                }
+            } catch (err) {
+                console.error('AdProvider initialization error:', err);
+            }
+        };
+
+        // Wait a bit for scripts to load
+        const timer = setTimeout(initAdProvider, 500);
+
+        return () => clearTimeout(timer);
     }, []);
 
     return (
         <div
+            ref={containerRef}
             className={cn(
-                "bg-gradient-to-br from-primary/5 via-secondary/5 to-primary/5 border border-border flex items-center justify-center text-muted-foreground text-sm font-medium transition-all hover:shadow-md hover:from-primary/10 hover:to-primary/10",
+                "bg-gradient-to-br from-primary/5 via-secondary/5 to-primary/5 border border-border flex items-center justify-center text-muted-foreground text-sm font-medium transition-all hover:shadow-md hover:from-primary/10 hover:to-primary/10 overflow-hidden",
                 // Default styling based on expectations of previous components
                 variant === 'native' && "w-full min-h-[90px] rounded-lg py-4",
                 variant === 'card' && "w-full h-full min-h-[280px] rounded-xl shadow-sm",
@@ -30,7 +43,11 @@ const AdSpace = ({ className, variant = 'native' }: AdSpaceProps) => {
             )}
         >
             <div className="flex flex-col items-center justify-center gap-0 w-full h-full">
-                <ins className="eas6a97888e2" data-zoneid="5835072"></ins>
+                <ins 
+                    className="eas6a97888e2" 
+                    data-zoneid="5835072"
+                    style={{ display: 'block', width: '100%', minHeight: '60px' }}
+                ></ins>
             </div>
         </div>
     );
