@@ -4,7 +4,7 @@ import { videoService } from '@/services/api';
 import { Video } from '@/data/mockArticles';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import Link from 'react-router-dom';
+
 import AdSpace from '@/components/AdSpace';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -135,7 +135,7 @@ const VideoDetail = () => {
 
                             <article className="space-y-6">
                                 <div className="space-y-4">
-                                    <VideoPlayer url={video.videoUrl} title={video.title} />
+                                    <VideoPlayer key={video.id} url={video.videoUrl} title={video.title} />
 
                                     <div className="flex items-start justify-between gap-4">
                                         <div className="space-y-2">

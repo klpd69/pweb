@@ -51,7 +51,7 @@ const ArticleCard = ({ article, variant = 'default' }: ArticleCardProps) => {
           ) : showPreview && !youtubeId ? (
             <video
               src={article.videoUrl}
-              className="absolute inset-0 w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-cover pointer-events-none"
               autoPlay
               muted
               loop
@@ -102,7 +102,7 @@ const ArticleCard = ({ article, variant = 'default' }: ArticleCardProps) => {
         ) : showPreview && !youtubeId ? (
           <video
             src={article.videoUrl}
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover pointer-events-none"
             autoPlay
             muted
             loop
