@@ -4,7 +4,6 @@ import { videoService } from '@/services/api';
 import { Video } from '@/data/mockArticles';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-
 import AdSpace from '@/components/AdSpace';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -77,33 +76,9 @@ const VideoDetail = () => {
 
     if (!video) return null;
 
-    // Helper to inject ads into recommendations
-    // Helper to inject ads into recommendations
+    // Helper to render recommendations
     const renderRecommendations = () => {
-        const items = [];
-        const videosToShow = recommendedVideos.slice(0, visibleCount);
-        let videoIdx = 0;
-
-        // Pattern: 4 videos, Ad, 4 videos, Ad, 4 videos, Ad, remaining videos...
-
-        // Chunk 1: 4 videos
-        for (let i = 0; i < 4 && videoIdx < videosToShow.length; i++) items.push({ type: 'video', data: videosToShow[videoIdx++] });
-        if (videoIdx < videosToShow.length || visibleCount >= 12) items.push({ type: 'ad', id: 'ad-1' });
-
-        // Chunk 2: 4 videos
-        for (let i = 0; i < 4 && videoIdx < videosToShow.length; i++) items.push({ type: 'video', data: videosToShow[videoIdx++] });
-        if (videoIdx < videosToShow.length || visibleCount >= 12) items.push({ type: 'ad', id: 'ad-2' });
-
-        // Chunk 3: 4 videos
-        for (let i = 0; i < 4 && videoIdx < videosToShow.length; i++) items.push({ type: 'video', data: videosToShow[videoIdx++] });
-        if (videoIdx < videosToShow.length || visibleCount >= 12) items.push({ type: 'ad', id: 'ad-3' });
-
-        // Remaining videos (if any, e.g. from load more)
-        while (videoIdx < videosToShow.length) {
-            items.push({ type: 'video', data: videosToShow[videoIdx++] });
-        }
-
-        return items;
+        return recommendedVideos.slice(0, visibleCount).map(video => ({ type: 'video', data: video }));
     };
 
     const handleLoadMore = () => {
@@ -121,9 +96,9 @@ const VideoDetail = () => {
         <div className="min-h-screen flex flex-col">
             <Header />
             <main className="flex-1">
-                {/* Native Banner Ad before content */}
-                <div className="container py-4">
-                    <AdSpace variant="native" className="" />
+                {/* Top Banner Ad */}
+                <div className="container py-3">
+                    <AdSpace variant="native" className="w-full" />
                 </div>
 
                 <div className="container py-8 max-w-5xl mx-auto">
@@ -158,9 +133,8 @@ const VideoDetail = () => {
                             </div>
                         </div>
 
-                        {/* Ad Space */}
-                        <div className="bg-gradient-to-r from-primary/5 via-secondary/5 to-primary/5 border border-border rounded-lg p-6">
-                            <div id='_2640576' className='_0bd1320ebfcd w-full min-h-[120px]'></div>
+                        <div className="bg-gradient-to-r from-primary/5 via-secondary/5 to-primary/5 border border-border rounded-lg p-4 my-6">
+                            <AdSpace variant="card" className="w-full" />
                         </div>
                     </article>
 
@@ -170,13 +144,7 @@ const VideoDetail = () => {
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                             {renderRecommendations().map((item, idx) => (
                                 <React.Fragment key={idx}>
-                                    {item.type === 'video' ? (
-                                        <ArticleCard article={item.data as Video} />
-                                    ) : (
-                                        <div className="col-span-1 min-h-[300px] rounded-xl overflow-hidden shadow-md border border-border bg-gradient-to-br from-primary/5 to-secondary/5 hover:shadow-lg transition-all">
-                                            <AdSpace variant="card" className="w-full h-full" />
-                                        </div>
-                                    )}
+                                    <ArticleCard article={item.data as Video} />
                                 </React.Fragment>
                             ))}
                         </div>

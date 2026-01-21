@@ -174,9 +174,9 @@ const Dashboard = () => {
         <div className="min-h-screen flex flex-col">
             <Header />
 
-            {/* Native Banner Ad */}
-            <div className="container pt-6">
-                <AdSpace variant="native" className="my-4" />
+            {/* Top Banner Ad */}
+            <div className="container pt-4">
+                <AdSpace variant="native" className="w-full" />
             </div>
 
             <main className="flex-1 container py-8">

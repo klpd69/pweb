@@ -7,9 +7,6 @@ import ArticleGrid from '@/components/ArticleGrid';
 import Pagination from '@/components/Pagination';
 import Footer from '@/components/Footer';
 import AdSpace from '@/components/AdSpace';
-import AdSense from '@/components/AdSense';
-import NativeBanner from '@/components/NativeBanner';
-import Smartlink from '@/components/Smartlink';
 
 import { Video } from '@/data/mockArticles';
 import { videoService } from '@/services/api';
@@ -132,23 +129,9 @@ const Index = () => {
         <main className="flex-1 w-full min-w-0">
           {/* {featuredArticle && <HeroSection article={featuredArticle} />} */}
 
-          {/* Display Ad between hero and content */}
-          {/* Native Banner Ad */}
-          <div className="container py-2">
-            <AdSpace variant="native" className="my-2" />
-          </div>
-
-          {/* Native Banner Widget - 4 images with teaser text */}
-          <div className="container py-6">
-            <NativeBanner />
-          </div>
-
-          {/* Smartlink Banner */}
+          {/* Top Banner Ad */}
           <div className="container py-4">
-            <Smartlink
-              title="Smartlink_1"
-              description="Visit our exclusive offers and earn rewards"
-            />
+            <AdSpace variant="native" className="w-full" />
           </div>
 
           {/* Category indicator */}
@@ -189,9 +172,9 @@ const Index = () => {
 
 
           {/* Bottom Ad Section */}
-          <div className="container py-8">
+          <div className="container py-6">
             <div className="flex justify-center">
-              <AdSpace variant="vertical" className="w-[160px] h-[300px]" />
+              <AdSpace variant="vertical" className="w-[300px] h-[250px]" />
             </div>
           </div>
         </main>
