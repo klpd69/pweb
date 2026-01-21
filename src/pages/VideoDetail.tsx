@@ -163,6 +163,11 @@ const VideoDetail = () => {
                                         {video.description}
                                     </div>
                                 </div>
+
+                                {/* Ad Space */}
+                                <div className="my-8 py-6 bg-muted/20 rounded-lg">
+                                    <div id='_2640576' className='_0bd1320ebfcd'></div>
+                                </div>
                             </article>
                         </div>
 

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { cn } from '@/lib/utils';
 
 interface AdSpaceProps {
@@ -6,6 +7,16 @@ interface AdSpaceProps {
 }
 
 const AdSpace = ({ className, variant = 'native' }: AdSpaceProps) => {
+    useEffect(() => {
+        // Initialize ad provider
+        try {
+            // @ts-ignore
+            (window.AdProvider = window.AdProvider || []).push({ "serve": {} });
+        } catch (err) {
+            console.error('AdProvider error:', err);
+        }
+    }, []);
+
     return (
         <div
             className={cn(
@@ -19,6 +30,7 @@ const AdSpace = ({ className, variant = 'native' }: AdSpaceProps) => {
             )}
         >
             <div className="flex flex-col items-center gap-2">
+                <ins className="eas6a97888e2" data-zoneid="5835072"></ins>
                 <span className="uppercase tracking-widest text-xs opacity-70">Advertisement</span>
             </div>
         </div>

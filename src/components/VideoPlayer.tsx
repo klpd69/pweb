@@ -23,6 +23,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ url, title }) => {
         if (!youtubeId && videoRef.current) {
             // Initialize Fluid Player
             playerRef.current = fluidPlayer(videoRef.current, {
+                vastUrl: 'https://s.magsrv.com/v1/vast.php?idzone=5835074',
                 layoutControls: {
                     fillToContainer: true,
                     primaryColor: "#29b6f6",

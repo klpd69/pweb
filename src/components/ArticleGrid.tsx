@@ -1,6 +1,7 @@
 import { Video } from '@/data/mockArticles';
 import ArticleCard from './VideoCard';
 import AdSpace from './AdSpace';
+import VideoSliderAd from './VideoSliderAd';
 import React from 'react';
 
 interface ArticleGridProps {
@@ -21,10 +22,16 @@ const ArticleGrid = ({ articles, title }: ArticleGridProps) => {
       itemsWithAds.push(<ArticleCard key={article.id} article={article} />);
 
       if (adPositions.includes(index)) {
+        // Alternate between regular ads and video slider ads
+        const useVideoSliderAd = index === 9; // Use video slider ad for middle position
         itemsWithAds.push(
           <div key={`ad-${index}`} className="col-span-1 rounded-xl overflow-hidden shadow-sm border border-border bg-card flex flex-col items-center justify-center p-2 min-h-[300px]">
             <div className="w-full h-full bg-muted/30 flex items-center justify-center rounded-lg">
-              <AdSpace variant="card" className="w-full h-full" />
+              {useVideoSliderAd ? (
+                <VideoSliderAd />
+              ) : (
+                <AdSpace variant="card" className="w-full h-full" />
+              )}
             </div>
           </div>
         );
